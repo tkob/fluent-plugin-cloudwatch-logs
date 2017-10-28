@@ -64,6 +64,7 @@ module Fluent
 
       options = {}
       options[:credentials] = Aws::Credentials.new(@aws_key_id, @aws_sec_key) if @aws_key_id && @aws_sec_key
+      options[:credentials] ||= Aws::ECSCredentials.new() if ['AWS_CONTAINER_CREDENTIALS_RELATIVE_URI']
       options[:region] = @region if @region
       options[:http_proxy] = @http_proxy if @http_proxy
       @logs ||= Aws::CloudWatchLogs::Client.new(options)

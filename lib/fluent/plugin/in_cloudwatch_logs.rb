@@ -56,6 +56,7 @@ module Fluent
         )
       else
         options[:credentials] = Aws::Credentials.new(@aws_key_id, @aws_sec_key) if @aws_key_id && @aws_sec_key
+        options[:credentials] ||= Aws::ECSCredentials.new() if ['AWS_CONTAINER_CREDENTIALS_RELATIVE_URI']
       end
 
       @logs = Aws::CloudWatchLogs::Client.new(options)
